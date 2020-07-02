@@ -11,6 +11,7 @@ namespace Casino
 {
     public partial class Juego : System.Web.UI.Page
     {
+        Dictionary<int, Color> Colores = new Dictionary<int, Color>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -35,16 +36,12 @@ namespace Casino
                                    select jugador);
 
 
-
             ddlJugador3.DataValueField = ddlJugador2.DataValueField = ddlJugador1.DataValueField = "Id";
             ddlJugador3.DataTextField = ddlJugador2.DataTextField = ddlJugador1.DataTextField = "Nombre";
             ddlJugador3.DataSource = ddlJugador2.DataSource = ddlJugador1.DataSource = listJugadores;
             ddlJugador1.DataBind();
             ddlJugador2.DataBind();
             ddlJugador3.DataBind();
-
-
-
 
         }
 
@@ -57,18 +54,25 @@ namespace Casino
         ////            return "";
         //        }
 
-        private static void CargaColores()
+        private void CargaColores()
         {
-            Dictionary<string, Color> Colores = new Dictionary<string, Color>();
+            Dictionary<int, Color> Colores = new Dictionary<int, Color>();
 
-            Colores.Add(Guid.NewGuid().ToString(), Color.Verde);
-            Colores.Add(Guid.NewGuid().ToString(), Color.Verde);
-            for (int i = 1; i <= 49; i++)
+            Colores.Add(1, Color.Verde);
+            Colores.Add(2, Color.Verde);
+            for (int i = 3; i <= 51; i++)
             {
-                Colores.Add(Guid.NewGuid().ToString(), Color.Rojo);
-                Colores.Add(Guid.NewGuid().ToString(), Color.Negro);
+                Colores.Add(i, Color.Rojo);
+
             }
 
+            for (int i = 52; i <= 100; i++)
+            {
+                Colores.Add(i, Color.Negro);
+
+            }
+
+            Session["Colores"] = Colores;
         }
         /// <summary>
         /// válida la cantidad de dinero a apostar
@@ -145,18 +149,18 @@ namespace Casino
             //    && int.Parse(ddlJugador1.SelectedValue) > 0 && int.Parse(ddlJugador2.SelectedValue) > 0 && int.Parse(ddlJugador3.SelectedValue) > 0
             //      && ddlColor1.SelectedValue != "0" && ddlColor2.SelectedValue != "0" && ddlColor3.SelectedValue != "0")
             //{
-            var valida1 = ValidaCantidad(txtCantidad1, int.Parse(ddlJugador1.SelectedValue));
-            if (valida1)
-            {
-                args.IsValid = true;
-                ShowMensajes("Correcto!!");
-            }
-            else
-            {
+            //var valida1 = ValidaCantidad(txtCantidad1, int.Parse(ddlJugador1.SelectedValue));
+            //if (valida1)
+            //{
+            //    args.IsValid = true;
+            //    ShowMensajes("Correcto!!");
+            //}
+            //else
+            //{
 
-                args.IsValid = false;
-                ShowMensajes("Debe rellenar todos los campos");
-            }
+            //    args.IsValid = false;
+            //    ShowMensajes("Debe rellenar todos los campos");
+            //}
 
 
 
@@ -181,7 +185,42 @@ namespace Casino
                 {
                     return;
                 }
-                ShowMensajes("a jugar!!");
+
+
+                var rand = new Random();
+                var ruleta = rand.Next(1, 100);
+                var Colores = (Dictionary<int, Color>)Session["Colores"];
+                var ColorRuleta = Colores[ruleta];
+
+                lblColorRuleta.Text = ColorRuleta.ToString();
+                lblNombreRes1.Text = ddlJugador1.SelectedItem.Text;
+                lblColorRes1.Text = ddlColor1.SelectedItem.Text;
+
+                decimal recuperado = 0;
+                if (ColorRuleta == Color.Verde)
+                    recuperado = 15;
+                else if (ColorRuleta == Color.Rojo || ColorRuleta == Color.Negro)
+                    recuperado = 2;
+
+
+                if (ddlColor1.SelectedItem.Text== ColorRuleta.ToString())
+                {
+                    lblGanancia.Text = $"{recuperado} veces lo apostado: {recuperado * int.Parse(txtCantidad1.Text)} ";
+                }
+                else
+                {
+                    lblGanancia.Text = "0";
+
+                }
+
+   
+
+               
+
+
+
+
+
             }
         }
 
