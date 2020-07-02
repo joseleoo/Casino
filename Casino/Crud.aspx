@@ -19,6 +19,8 @@
                 <div>
                     <asp:Label runat="server" Text="Nombre del jugador"></asp:Label>
                     <asp:TextBox runat="server" placeholder="ingrese nombre del jugador" ID="txtJugador"></asp:TextBox>
+                    Cantidad<asp:TextBox ID="txtJugador0" runat="server" placeholder="ingrese nombre del jugador"></asp:TextBox>
+                    <ajaxToolkit:FilteredTextBoxExtender ID="txtJugador0_FilteredTextBoxExtender" runat="server" BehaviorID="txtJugador0_FilteredTextBoxExtender" FilterType="Numbers" TargetControlID="txtJugador0" />
                     <asp:Button runat="server" Text="Guardar" ID="btnGuardar" OnClick="btnGuardar_Click" />
                     <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" OnClick="btnLimpiar_Click" />
                 </div>

@@ -34,13 +34,14 @@ namespace Casino
                             if (Jugador.nombre != txtJugador.Text)
                             {
                                 Jugador.nombre = txtJugador.Text;
+                                Jugador.cantidad = txtJugador0.Text == "" ? 0 : int.Parse(txtJugador0.Text);
                             }
                             else
                             {
-                                ShowMensajes("Escriba un nuevo nombre del jugador");
+                                ShowMensajes("Modifique un nuevo nombre del jugador");
                                 return;
                             }
-                            
+
                             break;
                         default:
                             casino.jugadores.Add(new jugadores { nombre = txtJugador.Text, cantidad = 10000 });
@@ -55,7 +56,7 @@ namespace Casino
                     txtJugador.Focus();
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
                 ShowMensajes("Error al guardar intente de nuevo");
             }
@@ -68,7 +69,7 @@ namespace Casino
             CargarGrid();
         }
 
-        public  void ShowMensajes(string mensaje) => ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + mensaje + "');", true);
+        public void ShowMensajes(string mensaje) => ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + mensaje + "');", true);
 
         private void CargarGrid()
         {
@@ -100,6 +101,7 @@ namespace Casino
             if (e.CommandName == "Modificar")
             {
                 txtJugador.Text = Jugador.nombre;
+                txtJugador0.Text = Math.Round(Jugador.cantidad).ToString();
                 hdfModificando.Value = nameof(opera.modifica);
             }
             else if (e.CommandName == "Eliminar")

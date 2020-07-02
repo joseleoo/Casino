@@ -51,6 +51,24 @@ namespace Casino
         protected global::System.Web.UI.WebControls.TextBox txtJugador;
 
         /// <summary>
+        /// Control txtJugador0.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtJugador0;
+
+        /// <summary>
+        /// Control txtJugador0_FilteredTextBoxExtender.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender txtJugador0_FilteredTextBoxExtender;
+
+        /// <summary>
         /// Control btnGuardar.
         /// </summary>
         /// <remarks>

@@ -1,7 +1,9 @@
-﻿using Datos;
+﻿using AjaxControlToolkit.HtmlEditor.ToolbarButtons;
+using Datos;
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -76,9 +78,9 @@ namespace Casino
             ddlJugador3.DataValueField = ddlJugador2.DataValueField = ddlJugador1.DataValueField = "Id";
             ddlJugador3.DataTextField = ddlJugador2.DataTextField = ddlJugador1.DataTextField = "Nombre";
             ddlJugador3.DataSource = ddlJugador2.DataSource = ddlJugador1.DataSource = listJugadores;
-                ddlJugador1.DataBind();
-                ddlJugador2.DataBind();
-                ddlJugador3.DataBind(); 
+            ddlJugador1.DataBind();
+            ddlJugador2.DataBind();
+            ddlJugador3.DataBind();
             #endregion
 
         }
@@ -130,14 +132,27 @@ namespace Casino
                 ValorMinimo = (Cantidad * 8) / 100;
                 ValorMaximo = (Cantidad * 15) / 100;
 
+                if (Cantidad <= 1000)
+                {
+                    ValorMaximo=ValorMinimo = Cantidad;
+                }
+
                 if (Cantidad == 0)
                 {
+                    FinalizarJuego();
                     return ResultadoValidaCantidad(txtCantidad, "No tiene dinero para jugar");
                 }
                 else if (cantidadApuesta < ValorMinimo || cantidadApuesta > ValorMaximo)
                 {
-                    return ResultadoValidaCantidad(txtCantidad, $"El valor debe estar entre ${Math.Round(ValorMinimo, 1)} (8%)" +
-                                   $" y ${Math.Round(ValorMaximo, 1)} (15%)");
+                    if (Cantidad <= 1000)
+                    {
+                        return ResultadoValidaCantidad(txtCantidad, $"El valor debe ser entre ${Math.Round(Cantidad, 1)} ");
+                    }
+                    else
+                    {
+                        return ResultadoValidaCantidad(txtCantidad, $"El valor debe estar entre ${Math.Round(ValorMinimo, 1)} (8%)" +
+                                         $" y ${Math.Round(ValorMaximo, 1)} (15%)");
+                    }
                 }
                 else
                 {
@@ -199,7 +214,7 @@ namespace Casino
                 var Colores = (Dictionary<int, Color>)Session["Colores"];
                 var ColorRuleta = Colores[ruleta];
                 lblColorRuleta.Text = ColorRuleta.ToString();
-
+                SetColor(lblColorRuleta);
                 Session["jugando"] = 1;
                 #endregion
 
@@ -210,7 +225,7 @@ namespace Casino
                 Session["dineroActual1"] = lblDineroActual1.Text = dineroActual1;
                 Session["ganancia1"] = lblGanancia1.Text = ganancia1;
                 lblColorRes1.Text = ddlColor1.SelectedItem.Text;
-
+                SetColor(lblColorRes1);
 
                 string ganancia2;
                 string dineroActual2;
@@ -219,6 +234,7 @@ namespace Casino
                 Session["dineroActual2"] = lblDineroActual2.Text = dineroActual2;
                 Session["ganancia2"] = lblGanancia2.Text = ganancia2;
                 lblColorRes2.Text = ddlColor2.SelectedItem.Text;
+                SetColor(lblColorRes2);
 
                 string ganancia3;
                 string dineroActual3;
@@ -227,6 +243,7 @@ namespace Casino
                 Session["dineroActual3"] = lblDineroActual3.Text = dineroActual3;
                 Session["ganancia3"] = lblGanancia3.Text = ganancia3;
                 lblColorRes3.Text = ddlColor3.SelectedItem.Text;
+                SetColor(lblColorRes3);
             }
         }
 
@@ -295,6 +312,43 @@ namespace Casino
         protected void Timer1_Tick(object sender, EventArgs e)
         {
             FinalizarJuego();
+        }
+
+        protected void btnReiniciar_Click(object sender, EventArgs e)
+        {
+
+            Session["Nombre1"] = lblNombreRes1.Text = "";
+            Session["dineroActual1"] = lblDineroActual1.Text = "";
+            Session["ganancia1"] = lblGanancia1.Text = "";
+            lblColorRes1.Text = "";
+
+
+            Session["Nombre2"] = lblNombreRes2.Text = "";
+            Session["dineroActual2"] = lblDineroActual2.Text = "";
+            Session["ganancia2"] = lblGanancia2.Text = "";
+            lblColorRes2.Text ="";
+
+
+            Session["Nombre3"] = lblNombreRes3.Text = "";
+            Session["dineroActual3"] = lblDineroActual3.Text = "";
+            Session["ganancia3"] = lblGanancia3.Text = "";
+            lblColorRes3.Text = "";
+            ddlJugador3.Enabled = ddlJugador2.Enabled = ddlJugador1.Enabled = true;
+            divJugadores.Visible = true;
+            divFinalJuego.Visible = false;
+            Session["jugando"] =0;
+            Button1.Enabled = true;
+
+        }
+
+        public void SetColor(Label label)
+        {
+            if (label.Text =="Rojo")
+                label.ForeColor = System.Drawing.Color.Red;
+            if(label.Text=="Negro")
+                label.ForeColor = System.Drawing.Color.Black;
+            if (label.Text == "Verde")
+                label.ForeColor = System.Drawing.Color.Green;
         }
     }
 

@@ -69,6 +69,8 @@
                 <div>
                     <asp:Button ID="Button1" runat="server" Text="Empezar" OnClick="Button1_Click" />
 
+                    <asp:Button ID="btnReiniciar" runat="server" Text="Reiniciar" OnClick="btnReiniciar_Click" />
+
                 </div>
                 <hr />
                 <div>
