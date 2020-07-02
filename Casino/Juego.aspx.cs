@@ -18,7 +18,33 @@ namespace Casino
             {
                 CargaColores();
                 CargasListas();
+                CargarSesionesResultados();
+
             }
+
+        }
+
+        private void CargarSesionesResultados()
+        {
+            if (Session["jugando"] != null)
+            {
+                if ((int)Session["jugando"] == 1)
+                {
+                    FinalizarJuego();
+                    Session["jugando"] = 0;
+                } 
+            }
+            lblNombreRes1.Text = (string)Session["Nombre1"];
+            lblDineroActual1.Text = (string)Session["dineroActual1"];
+            lblGanancia1.Text = (string)Session["dineroActual1"];
+
+            lblNombreRes2.Text = (string)Session["Nombre2"];
+            lblDineroActual2.Text = (string)Session["dineroActual2"];
+            lblGanancia2.Text = (string)Session["dineroActual2"];
+
+            lblNombreRes3.Text = (string)Session["Nombre3"];
+            lblDineroActual3.Text = (string)Session["dineroActual3"];
+            lblGanancia3.Text = (string)Session["dineroActual3"];
         }
 
         private void CargasListas()
@@ -45,15 +71,6 @@ namespace Casino
 
         }
 
-        //        public string Ruleta(Dictionary<string, Color> colores)
-        //        {
-        ////            Random random = new Random();
-        ////random.Next()
-
-
-        ////            return "";
-        //        }
-
         private void CargaColores()
         {
             Dictionary<int, Color> Colores = new Dictionary<int, Color>();
@@ -63,17 +80,16 @@ namespace Casino
             for (int i = 3; i <= 51; i++)
             {
                 Colores.Add(i, Color.Rojo);
-
             }
 
             for (int i = 52; i <= 100; i++)
             {
                 Colores.Add(i, Color.Negro);
-
             }
 
             Session["Colores"] = Colores;
         }
+
         /// <summary>
         /// válida la cantidad de dinero a apostar
         /// </summary>
@@ -167,32 +183,35 @@ namespace Casino
                 var ruleta = rand.Next(1, 100);
                 var Colores = (Dictionary<int, Color>)Session["Colores"];
                 var ColorRuleta = Colores[ruleta];
-                lblColorRuleta.Text = ColorRuleta.ToString(); 
+                lblColorRuleta.Text = ColorRuleta.ToString();
+              
+                Session["jugando"] = 1;
                 #endregion
 
                 string ganancia1;
                 string dineroActual1;
                 Jugar(ddlJugador1, ddlColor1, txtCantidad1, ColorRuleta, out ganancia1, out dineroActual1);
-                lblNombreRes1.Text = ddlJugador1.SelectedItem.Text;
-                lblColorRes1.Text = ddlColor1.SelectedItem.Text;
-                lblDineroActual1.Text = dineroActual1;
-                lblGanancia1.Text = ganancia1;
+                Session["Nombre1"] = lblNombreRes1.Text = ddlJugador1.SelectedItem.Text;
+                Session["dineroActual1"] = lblDineroActual1.Text = dineroActual1;
+                Session["ganancia1"] = lblGanancia1.Text = ganancia1;
+                lblColorRes1.Text = ddlColor1.SelectedItem.Text;      
+         
 
                 string ganancia2;
                 string dineroActual2;
                 Jugar(ddlJugador2, ddlColor2, txtCantidad2, ColorRuleta, out ganancia2, out dineroActual2);
-                lblNombreRes2.Text = ddlJugador2.SelectedItem.Text;
+                Session["Nombre2"] = lblNombreRes2.Text = ddlJugador2.SelectedItem.Text;
+                Session["dineroActual2"] = lblDineroActual2.Text = dineroActual2;
+                Session["ganancia2"] = lblGanancia2.Text = ganancia2;
                 lblColorRes2.Text = ddlColor2.SelectedItem.Text;
-                lblDineroActual2.Text = dineroActual2;
-                lblGanancia2.Text = ganancia2;
 
                 string ganancia3;
                 string dineroActual3;
                 Jugar(ddlJugador3, ddlColor3, txtCantidad3, ColorRuleta, out ganancia3, out dineroActual3);
-                lblNombreRes3.Text = ddlJugador3.SelectedItem.Text;
+                Session["Nombre3"] = lblNombreRes3.Text = ddlJugador3.SelectedItem.Text;
+                Session["dineroActual3"] = lblDineroActual3.Text = dineroActual3;
+                Session["ganancia3"] = lblGanancia3.Text = ganancia3;
                 lblColorRes3.Text = ddlColor3.SelectedItem.Text;
-                lblDineroActual3.Text = dineroActual2;
-                lblGanancia3.Text = ganancia2;
             }
         }
 
@@ -247,6 +266,13 @@ namespace Casino
             else if (ColorRuleta == Color.Rojo || ColorRuleta == Color.Negro)
                 recuperado = 2;
             return recuperado;
+        }
+
+        public void FinalizarJuego()
+        {
+            divJugadores.Visible = false;
+            divFinalJuego.Visible = true;
+            Button1.Enabled = false;
         }
 
     }

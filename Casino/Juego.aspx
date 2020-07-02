@@ -12,7 +12,10 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <div>
+                <asp:Timer ID="Timer1" runat="server"></asp:Timer>
+                <asp:HiddenField ID="hdfJugando" runat="server" Value="0"/>
+                <div id="divJugadores" runat="server">
+                <div  >
                     <asp:Label ID="Label1" runat="server" Text="Elija un nombre para el jugador #1"></asp:Label>
                     <asp:DropDownList ID="ddlJugador1" runat="server" CausesValidation="True"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="ddlJugador1" Display="Dynamic" InitialValue="0" ErrorMessage="Seleccione un jugador" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
@@ -31,6 +34,7 @@
                     </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddlColor1" Display="Dynamic" InitialValue="0" ErrorMessage="elija color" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                 </div>
+
                 <hr />
                 <div>
                     <asp:Label ID="Label2" runat="server" Text="Elija un nombre para el jugador #2"></asp:Label>
@@ -70,6 +74,10 @@
                 </div>
 
                 <hr />
+                </div>
+                <div id="divFinalJuego" runat="server" visible="false">
+                    "Final del juego. Resultados en la parte inferior"
+                </div>
                 <div>
                     <asp:Button ID="Button1" runat="server" Text="Empezar" OnClick="Button1_Click" />
 
