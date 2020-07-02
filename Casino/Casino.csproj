@@ -231,10 +231,6 @@
       <Project>{91f9dd36-b18e-4e1b-b0e3-8dae139dddb3}</Project>
       <Name>Datos</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Logica\Logica.csproj">
-      <Project>{b32e6f5b-5395-4aab-94b8-b9c171bc01c5}</Project>
-      <Name>Logica</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

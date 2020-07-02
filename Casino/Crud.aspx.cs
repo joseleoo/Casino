@@ -55,7 +55,7 @@ namespace Casino
                     txtJugador.Focus();
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 ShowMensajes("Error al guardar intente de nuevo");
             }

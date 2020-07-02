@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Casino", "Casino\Casino.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj", "{91F9DD36-B18E-4E1B-B0E3-8DAE139DDDB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Logica\Logica.csproj", "{B32E6F5B-5395-4AAB-94B8-B9C171BC01C5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{91F9DD36-B18E-4E1B-B0E3-8DAE139DDDB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91F9DD36-B18E-4E1B-B0E3-8DAE139DDDB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91F9DD36-B18E-4E1B-B0E3-8DAE139DDDB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B32E6F5B-5395-4AAB-94B8-B9C171BC01C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B32E6F5B-5395-4AAB-94B8-B9C171BC01C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B32E6F5B-5395-4AAB-94B8-B9C171BC01C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B32E6F5B-5395-4AAB-94B8-B9C171BC01C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
