@@ -43,7 +43,7 @@ namespace Casino
             ddlJugador2.DataBind();
             ddlJugador3.DataBind();
 
-            ddlColor3.DataSource = ddlColor2.DataSource = ddlColor1.DataSource;
+
 
 
         }
@@ -75,12 +75,15 @@ namespace Casino
         /// </summary>
         /// <param name="cantidadApuesta">cantidad a apostar</param>
         /// <param name="idJugador"> id del jugador</param>
-        private bool ValidaCantidad(TextBox txtCantidad,  int idJugador)
+        private bool ValidaCantidad(TextBox txtCantidad, int idJugador)
         {
-            var cantidadApuesta =string.IsNullOrEmpty( txtCantidad.Text)?0: decimal.Parse(txtCantidad.Text);
+            if (idJugador == 0)
+                return ResultadoValidaCantidad(txtCantidad, "Debe seleccionar un jugador");
+
+            var cantidadApuesta = string.IsNullOrEmpty(txtCantidad.Text) ? 0 : decimal.Parse(txtCantidad.Text);
 
             if (cantidadApuesta < 1)
-            {             
+            {
                 return ResultadoValidaCantidad(txtCantidad, "Debe ingresar una cantidad a apostar");
             }
             else
@@ -111,7 +114,7 @@ namespace Casino
             }
         }
 
-        private bool ResultadoValidaCantidad(TextBox txtCantidad,string mensaje)
+        private bool ResultadoValidaCantidad(TextBox txtCantidad, string mensaje)
         {
             ShowMensajes(mensaje);
             txtCantidad.Focus();
@@ -161,39 +164,57 @@ namespace Casino
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            ShowMensajes("a jugar!!");
+            if (Page.IsValid)
+            {
+
+                if (!ValidaCantidad(txtCantidad1, int.Parse(ddlJugador1.SelectedValue)))
+                {
+                    return;
+                }
+
+                if (!ValidaCantidad(txtCantidad2, int.Parse(ddlJugador2.SelectedValue)))
+                {
+                    return;
+                }
+
+                if (!ValidaCantidad(txtCantidad3, int.Parse(ddlJugador3.SelectedValue)))
+                {
+                    return;
+                }
+                ShowMensajes("a jugar!!");
+            }
         }
 
         protected void CustomValidator2_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            var valida2 = ValidaCantidad(txtCantidad2, int.Parse(ddlJugador2.SelectedValue));
-            if ( valida2 )
-            {
-                args.IsValid = true;
-                ShowMensajes("Correcto!!");
-            }
-            else
-            {
+            //var valida2 = ValidaCantidad(txtCantidad2, int.Parse(ddlJugador2.SelectedValue));
+            //if ( valida2 )
+            //{
+            //    args.IsValid = true;
+            //    ShowMensajes("Correcto!!");
+            //}
+            //else
+            //{
 
-                args.IsValid = false;
-                ShowMensajes("Debe rellenar todos los campos");
-            }
+            //    args.IsValid = false;
+            //    ShowMensajes("Debe rellenar todos los campos");
+            //}
         }
 
         protected void CustomValidator1_ServerValidate1(object source, ServerValidateEventArgs args)
         {
-            var valida3 = ValidaCantidad(txtCantidad3, int.Parse(ddlJugador3.SelectedValue));
-            if ( valida3)
-            {
-                args.IsValid = true;
-                ShowMensajes("Correcto!!");
-            }
-            else
-            {
+            //var valida3 = ValidaCantidad(txtCantidad3, int.Parse(ddlJugador3.SelectedValue));
+            //if ( valida3)
+            //{
+            //    args.IsValid = true;
+            //    ShowMensajes("Correcto!!");
+            //}
+            //else
+            //{
 
-                args.IsValid = false;
-                ShowMensajes("Debe rellenar todos los campos");
-            }
+            //    args.IsValid = false;
+            //    ShowMensajes("Debe rellenar todos los campos");
+            //}
         }
     }
 
