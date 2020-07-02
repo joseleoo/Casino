@@ -12,7 +12,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <asp:Timer ID="Timer1" runat="server"></asp:Timer>
+                <asp:Timer ID="Timer1" runat="server" Enabled="False" Interval="90000" OnTick="Timer1_Tick"></asp:Timer>
                 <asp:HiddenField ID="hdfJugando" runat="server" Value="0"/>
                 <div id="divJugadores" runat="server">
                 <div  >
@@ -26,11 +26,7 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Ingrese Cantidad" ControlToValidate="txtCantidad1" InitialValue="0" Display="Dynamic" ForeColor="Red" SetFocusOnError="True">Ingrese Cantidad</asp:RequiredFieldValidator>
                     <ajaxToolkit:FilteredTextBoxExtender ID="txtCantidad1_FilteredTextBoxExtender" runat="server" FilterType="Numbers" TargetControlID="txtCantidad1" />
                     &nbsp;<asp:Label ID="Label6" runat="server" Text="Color"></asp:Label>
-                    <asp:DropDownList ID="ddlColor1" runat="server" CausesValidation="True">
-                        <asp:ListItem Value="0" Selected="True">Seleccione</asp:ListItem>
-                        <asp:ListItem Value="15">Verde</asp:ListItem>
-                        <asp:ListItem Value="2">Rojo</asp:ListItem>
-                        <asp:ListItem Value="2">Negro</asp:ListItem>
+                    <asp:DropDownList ID="ddlColor1" runat="server" CausesValidation="True" AutoPostBack="True">
                     </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddlColor1" Display="Dynamic" InitialValue="0" ErrorMessage="elija color" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                 </div>
@@ -46,11 +42,7 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtCantidad2" Display="Dynamic" ErrorMessage="Ingrese Cantidad" ForeColor="Red" SetFocusOnError="True">Ingrese Cantidad</asp:RequiredFieldValidator>
                     <ajaxToolkit:FilteredTextBoxExtender ID="txtCantidad2_FilteredTextBoxExtender" runat="server" FilterType="Numbers" TargetControlID="txtCantidad2" />
                     <asp:Label ID="Label7" runat="server" Text="Color"></asp:Label>
-                    <asp:DropDownList ID="ddlColor2" runat="server" CausesValidation="True">
-                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                        <asp:ListItem Value="15">Verde</asp:ListItem>
-                        <asp:ListItem Value="2">Rojo</asp:ListItem>
-                        <asp:ListItem Value="15">Negro</asp:ListItem>
+                    <asp:DropDownList ID="ddlColor2" runat="server" CausesValidation="True" AutoPostBack="True">
                     </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="ddlColor2" Display="Dynamic" ErrorMessage="elija color" ForeColor="Red" InitialValue="0" SetFocusOnError="True"></asp:RequiredFieldValidator>
                 </div>
@@ -64,11 +56,7 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtCantidad3" Display="Dynamic" ErrorMessage="Ingrese Cantidad" ForeColor="Red" SetFocusOnError="True">Ingrese Cantidad</asp:RequiredFieldValidator>
                     <ajaxToolkit:FilteredTextBoxExtender ID="txtCantidad3_FilteredTextBoxExtender" runat="server" FilterType="Numbers" TargetControlID="txtCantidad3" />
                     <asp:Label ID="Label8" runat="server" Text="Color"></asp:Label>
-                    <asp:DropDownList ID="ddlColor3" runat="server" CausesValidation="True">
-                        <asp:ListItem Value="0">Seleccione</asp:ListItem>
-                        <asp:ListItem Value="15">Verde</asp:ListItem>
-                        <asp:ListItem Value="2">Rojo</asp:ListItem>
-                        <asp:ListItem Value="2">Negro</asp:ListItem>
+                    <asp:DropDownList ID="ddlColor3" runat="server" CausesValidation="True" AutoPostBack="True">
                     </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="ddlColor3" Display="Dynamic" ErrorMessage="elija color" ForeColor="Red" InitialValue="0" SetFocusOnError="True"></asp:RequiredFieldValidator>
                 </div>
@@ -116,6 +104,7 @@
 
             </ContentTemplate>
         </asp:UpdatePanel>
+        <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/Crud.aspx">Ir al CRUD</asp:LinkButton>
     </form>
 </body>
 </html>

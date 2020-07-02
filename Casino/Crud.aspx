@@ -53,6 +53,7 @@
                     </asp:GridView>
                     <asp:HiddenField ID="hdfID" runat="server" />
                     <asp:HiddenField ID="hdfModificando" runat="server" />
+                    <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/Juego.aspx">Ir a JUGAR</asp:LinkButton>
                 </div>
 
             </ContentTemplate>

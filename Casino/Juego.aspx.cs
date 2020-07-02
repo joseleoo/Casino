@@ -32,7 +32,7 @@ namespace Casino
                 {
                     FinalizarJuego();
                     Session["jugando"] = 0;
-                } 
+                }
             }
             lblNombreRes1.Text = (string)Session["Nombre1"];
             lblDineroActual1.Text = (string)Session["dineroActual1"];
@@ -49,25 +49,37 @@ namespace Casino
 
         private void CargasListas()
         {
+            casinoEntities casino = new casinoEntities();
+            #region colores
 
+            List<ValorColor> lstColores = new List<ValorColor>();
+            lstColores.Add(new ValorColor { nombre = "Seleccione", id = 0 });
+            lstColores.AddRange(from color in casino.ValorColor
+                                select color);
+
+            ddlColor3.DataValueField = ddlColor2.DataValueField = ddlColor1.DataValueField = "id";
+            ddlColor3.DataTextField = ddlColor2.DataTextField = ddlColor1.DataTextField = "nombre";
+            ddlColor3.DataSource = ddlColor2.DataSource = ddlColor1.DataSource = lstColores;
+            ddlColor1.DataBind();
+            ddlColor2.DataBind();
+            ddlColor3.DataBind();
+            #endregion
+            #region jugadores
 
             List<jugadores> jugadorSeleccione = new List<jugadores>();
             jugadorSeleccione.Add(new jugadores { nombre = "Seleccione", cantidad = 0, id = 0 });
-
             List<jugadores> listJugadores = new List<jugadores>();
             listJugadores.AddRange(jugadorSeleccione);
-
-            casinoEntities casino = new casinoEntities();
             listJugadores.AddRange(from jugador in casino.jugadores
                                    select jugador);
-
 
             ddlJugador3.DataValueField = ddlJugador2.DataValueField = ddlJugador1.DataValueField = "Id";
             ddlJugador3.DataTextField = ddlJugador2.DataTextField = ddlJugador1.DataTextField = "Nombre";
             ddlJugador3.DataSource = ddlJugador2.DataSource = ddlJugador1.DataSource = listJugadores;
-            ddlJugador1.DataBind();
-            ddlJugador2.DataBind();
-            ddlJugador3.DataBind();
+                ddlJugador1.DataBind();
+                ddlJugador2.DataBind();
+                ddlJugador3.DataBind(); 
+            #endregion
 
         }
 
@@ -178,13 +190,16 @@ namespace Casino
                     return;
                 }
 
+                ddlJugador3.Enabled = ddlJugador2.Enabled = ddlJugador1.Enabled = false;
+
                 #region Encabezado juego
+                Timer1.Enabled = true;
                 var rand = new Random();
                 var ruleta = rand.Next(1, 100);
                 var Colores = (Dictionary<int, Color>)Session["Colores"];
                 var ColorRuleta = Colores[ruleta];
                 lblColorRuleta.Text = ColorRuleta.ToString();
-              
+
                 Session["jugando"] = 1;
                 #endregion
 
@@ -194,8 +209,8 @@ namespace Casino
                 Session["Nombre1"] = lblNombreRes1.Text = ddlJugador1.SelectedItem.Text;
                 Session["dineroActual1"] = lblDineroActual1.Text = dineroActual1;
                 Session["ganancia1"] = lblGanancia1.Text = ganancia1;
-                lblColorRes1.Text = ddlColor1.SelectedItem.Text;      
-         
+                lblColorRes1.Text = ddlColor1.SelectedItem.Text;
+
 
                 string ganancia2;
                 string dineroActual2;
@@ -273,8 +288,14 @@ namespace Casino
             divJugadores.Visible = false;
             divFinalJuego.Visible = true;
             Button1.Enabled = false;
+            Timer1.Enabled = false;
+            Session["jugando"] = 0;
         }
 
+        protected void Timer1_Tick(object sender, EventArgs e)
+        {
+            FinalizarJuego();
+        }
     }
 
     public enum Color
