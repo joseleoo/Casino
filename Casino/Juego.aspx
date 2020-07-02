@@ -76,23 +76,34 @@
                 </div>
                 <hr />
                 <div>
-                    <h2>Color Ruleta:<asp:Label ID="lblColorRuleta" runat="server" Text=""></asp:Label></h2>
+                    <h2>Ruleta (Color):<asp:Label ID="lblColorRuleta" runat="server" Text=""></asp:Label></h2>
                     <asp:Label ID="lbl" runat="server" Text="Jugador 1: "></asp:Label>
                     <asp:Label ID="lblNombreRes1" runat="server" Text=""></asp:Label><br />
                     <asp:Label ID="Label9" runat="server" Text="Color Seleccionado: "></asp:Label>
                     <asp:Label ID="lblColorRes1" runat="server" Text=""></asp:Label><br />
                     <asp:Label ID="Label10" runat="server" Text="Ganancia: "></asp:Label>
-                    <asp:Label ID="lblGanancia" runat="server" Text=""></asp:Label><br />
-                        <asp:Label ID="Label11" runat="server" Text="Dinero actual: "></asp:Label>
-                    <asp:Label ID="lblDineroActual" runat="server" Text=""></asp:Label>
-
-                    <%--     <hr />
-                    <asp:Label ID="Label9" runat="server" Text="Jugador 2:"></asp:Label>
-                    <asp:Label ID="Label10" runat="server" Text="Jugador 1:"></asp:Label>
+                    <asp:Label ID="lblGanancia1" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="Label11" runat="server" Text="Dinero actual: "></asp:Label>
+                    <asp:Label ID="lblDineroActual1" runat="server" Text=""></asp:Label>
                     <hr />
-                    <asp:Label ID="Label11" runat="server" Text="Jugador 1:"></asp:Label>
-                    <asp:Label ID="Label12" runat="server" Text="Jugador 1:"></asp:Label>
-                    <hr />--%>
+                     <asp:Label ID="Label12" runat="server" Text="Jugador 2: "></asp:Label>
+                    <asp:Label ID="lblNombreRes2" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="Label14" runat="server" Text="Color Seleccionado: "></asp:Label>
+                    <asp:Label ID="lblColorRes2" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="Label16" runat="server" Text="Ganancia: "></asp:Label>
+                    <asp:Label ID="lblGanancia2" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="Label18" runat="server" Text="Dinero actual: "></asp:Label>
+                    <asp:Label ID="lblDineroActual2" runat="server" Text=""></asp:Label>
+
+                         <hr />
+                     <asp:Label ID="Label13" runat="server" Text="Jugador 3: "></asp:Label>
+                    <asp:Label ID="lblNombreRes3" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="Label17" runat="server" Text="Color Seleccionado: "></asp:Label>
+                    <asp:Label ID="lblColorRes3" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="Label20" runat="server" Text="Ganancia: "></asp:Label>
+                    <asp:Label ID="lblGanancia3" runat="server" Text=""></asp:Label><br />
+                    <asp:Label ID="Label22" runat="server" Text="Dinero actual: "></asp:Label>
+                    <asp:Label ID="lblDineroActual3" runat="server" Text=""></asp:Label>
                 </div>
 
             </ContentTemplate>

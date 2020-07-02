@@ -108,8 +108,8 @@ namespace Casino
                 }
                 else if (cantidadApuesta < ValorMinimo || cantidadApuesta > ValorMaximo)
                 {
-                    return ResultadoValidaCantidad(txtCantidad, $"El valor debe estar entre ${Math.Round(ValorMinimo,1)} (8%)" +
-                                   $" y ${Math.Round(ValorMaximo,1)} (15%)");
+                    return ResultadoValidaCantidad(txtCantidad, $"El valor debe estar entre ${Math.Round(ValorMinimo, 1)} (8%)" +
+                                   $" y ${Math.Round(ValorMaximo, 1)} (15%)");
                 }
                 else
                 {
@@ -142,30 +142,6 @@ namespace Casino
 
         public void ShowMensajes(string mensaje) => ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + mensaje + "');", true);
 
-        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
-        {
-            //if (!string.IsNullOrEmpty(txtCantidad1.Text) && !string.IsNullOrEmpty(txtCantidad2.Text) && !string.IsNullOrEmpty(txtCantidad3.Text)
-            //    && int.Parse(txtCantidad1.Text) > 0 && int.Parse(txtCantidad2.Text) > 0 && int.Parse(txtCantidad3.Text) > 0
-            //    && int.Parse(ddlJugador1.SelectedValue) > 0 && int.Parse(ddlJugador2.SelectedValue) > 0 && int.Parse(ddlJugador3.SelectedValue) > 0
-            //      && ddlColor1.SelectedValue != "0" && ddlColor2.SelectedValue != "0" && ddlColor3.SelectedValue != "0")
-            //{
-            //var valida1 = ValidaCantidad(txtCantidad1, int.Parse(ddlJugador1.SelectedValue));
-            //if (valida1)
-            //{
-            //    args.IsValid = true;
-            //    ShowMensajes("Correcto!!");
-            //}
-            //else
-            //{
-
-            //    args.IsValid = false;
-            //    ShowMensajes("Debe rellenar todos los campos");
-            //}
-
-
-
-        }
-
         protected void Button1_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
@@ -186,36 +162,63 @@ namespace Casino
                     return;
                 }
 
-                Juego();
+                #region Encabezado juego
+                var rand = new Random();
+                var ruleta = rand.Next(1, 100);
+                var Colores = (Dictionary<int, Color>)Session["Colores"];
+                var ColorRuleta = Colores[ruleta];
+                lblColorRuleta.Text = ColorRuleta.ToString(); 
+                #endregion
 
+                string ganancia1;
+                string dineroActual1;
+                Jugar(ddlJugador1, ddlColor1, txtCantidad1, ColorRuleta, out ganancia1, out dineroActual1);
+                lblNombreRes1.Text = ddlJugador1.SelectedItem.Text;
+                lblColorRes1.Text = ddlColor1.SelectedItem.Text;
+                lblDineroActual1.Text = dineroActual1;
+                lblGanancia1.Text = ganancia1;
+
+                string ganancia2;
+                string dineroActual2;
+                Jugar(ddlJugador2, ddlColor2, txtCantidad2, ColorRuleta, out ganancia2, out dineroActual2);
+                lblNombreRes2.Text = ddlJugador2.SelectedItem.Text;
+                lblColorRes2.Text = ddlColor2.SelectedItem.Text;
+                lblDineroActual2.Text = dineroActual2;
+                lblGanancia2.Text = ganancia2;
+
+                string ganancia3;
+                string dineroActual3;
+                Jugar(ddlJugador3, ddlColor3, txtCantidad3, ColorRuleta, out ganancia3, out dineroActual3);
+                lblNombreRes3.Text = ddlJugador3.SelectedItem.Text;
+                lblColorRes3.Text = ddlColor3.SelectedItem.Text;
+                lblDineroActual3.Text = dineroActual2;
+                lblGanancia3.Text = ganancia2;
             }
         }
 
-        private void Juego()
+        /// <summary>
+        /// realiza el jugego por un jugador
+        /// </summary>
+        /// <param name="dropJugador">lista del jugador</param>
+        /// <param name="dropColor">lista del color</param>
+        /// <param name="txtCantidadJugadorApuesta">cantidad</param>
+        /// <param name="ColorRuleta">Color ramdom</param>
+        /// <param name="stGanancia">donde quedara guardada la salida</param>
+        /// <param name="stlblDineroActual">donde quedaará guardado el dinero acual</param>
+        private void Jugar(DropDownList dropJugador, DropDownList dropColor, TextBox txtCantidadJugadorApuesta,
+            Color ColorRuleta, out string stGanancia, out string stlblDineroActual)
         {
             casinoEntities casino = new casinoEntities();
-            var idJugador = int.Parse(ddlJugador1.SelectedValue);
+            var idJugador = int.Parse(dropJugador.SelectedValue);
             var Jugador = casino.jugadores.SingleOrDefault(j => j.id == idJugador);
 
-            var rand = new Random();
-            var ruleta = rand.Next(1, 100);
-            var Colores = (Dictionary<int, Color>)Session["Colores"];
-            var ColorRuleta = Colores[ruleta];
+            decimal recuperado = CantidadRecuperadXColor(ColorRuleta);
 
-            lblColorRuleta.Text = ColorRuleta.ToString();
-            lblNombreRes1.Text = ddlJugador1.SelectedItem.Text;
-            lblColorRes1.Text = ddlColor1.SelectedItem.Text;
-
-            decimal recuperado = 0;
-            if (ColorRuleta == Color.Verde)
-                recuperado = 15;
-            else if (ColorRuleta == Color.Rojo || ColorRuleta == Color.Negro)
-                recuperado = 2;
-
-            var cantidadApuesta = int.Parse(txtCantidad1.Text);
+            var cantidadApuesta = int.Parse(txtCantidadJugadorApuesta.Text);
             var ganancia = recuperado * cantidadApuesta;
             var mensajeGanancia = "";
-            if (ddlColor1.SelectedItem.Text == ColorRuleta.ToString())
+
+            if (dropColor.SelectedItem.Text == ColorRuleta.ToString())
             {
                 Jugador.cantidad = Jugador.cantidad + ganancia;
                 mensajeGanancia = $"{recuperado} veces lo apostado: ${Math.Round(ganancia, 1)}";
@@ -227,41 +230,25 @@ namespace Casino
             }
 
             casino.SaveChanges();
-            lblGanancia.Text = mensajeGanancia;
-            lblDineroActual.Text = $"${Math.Round(Jugador.cantidad, 1)}";
+            stGanancia = mensajeGanancia;
+            stlblDineroActual = $"${Math.Round(Jugador.cantidad, 1)}";
         }
 
-        protected void CustomValidator2_ServerValidate(object source, ServerValidateEventArgs args)
+        /// <summary>
+        /// devuelve la ganancia dependiedo del color
+        /// </summary>
+        /// <param name="ColorRuleta"></param>
+        /// <returns></returns>
+        private static decimal CantidadRecuperadXColor(Color ColorRuleta)
         {
-            //var valida2 = ValidaCantidad(txtCantidad2, int.Parse(ddlJugador2.SelectedValue));
-            //if ( valida2 )
-            //{
-            //    args.IsValid = true;
-            //    ShowMensajes("Correcto!!");
-            //}
-            //else
-            //{
-
-            //    args.IsValid = false;
-            //    ShowMensajes("Debe rellenar todos los campos");
-            //}
+            decimal recuperado = 0;
+            if (ColorRuleta == Color.Verde)
+                recuperado = 15;
+            else if (ColorRuleta == Color.Rojo || ColorRuleta == Color.Negro)
+                recuperado = 2;
+            return recuperado;
         }
 
-        protected void CustomValidator1_ServerValidate1(object source, ServerValidateEventArgs args)
-        {
-            //var valida3 = ValidaCantidad(txtCantidad3, int.Parse(ddlJugador3.SelectedValue));
-            //if ( valida3)
-            //{
-            //    args.IsValid = true;
-            //    ShowMensajes("Correcto!!");
-            //}
-            //else
-            //{
-
-            //    args.IsValid = false;
-            //    ShowMensajes("Debe rellenar todos los campos");
-            //}
-        }
     }
 
     public enum Color
