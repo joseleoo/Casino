@@ -82,7 +82,9 @@
                     <asp:Label ID="Label9" runat="server" Text="Color Seleccionado: "></asp:Label>
                     <asp:Label ID="lblColorRes1" runat="server" Text=""></asp:Label><br />
                     <asp:Label ID="Label10" runat="server" Text="Ganancia: "></asp:Label>
-                    <asp:Label ID="lblGanancia" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="lblGanancia" runat="server" Text=""></asp:Label><br />
+                        <asp:Label ID="Label11" runat="server" Text="Dinero actual: "></asp:Label>
+                    <asp:Label ID="lblDineroActual" runat="server" Text=""></asp:Label>
 
                     <%--     <hr />
                     <asp:Label ID="Label9" runat="server" Text="Jugador 2:"></asp:Label>
