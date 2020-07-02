@@ -26,5 +26,6 @@ namespace Datos
         }
     
         public virtual DbSet<jugadores> jugadores { get; set; }
+        public virtual DbSet<ValorColor> ValorColor { get; set; }
     }
 }

@@ -7,8 +7,5 @@ using System.Web.UI;
 
 namespace Logica
 {
-    public class Utilidades : System.Web.UI.Page
-    {
- 
-    }
+
 }

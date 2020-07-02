@@ -72,6 +72,9 @@
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValorColor.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

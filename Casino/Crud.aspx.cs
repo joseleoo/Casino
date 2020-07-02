@@ -29,16 +29,25 @@ namespace Casino
                     switch (hdfModificando.Value)
                     {
                         case nameof(opera.modifica):
-                            var Id =int.Parse( hdfID.Value);
-                            var Jugador = casino.jugadores.SingleOrDefault(j => j.id == Id);            
-                            Jugador.nombre = txtJugador.Text;
+                            var Id = int.Parse(hdfID.Value);
+                            var Jugador = casino.jugadores.SingleOrDefault(j => j.id == Id);
+                            if (Jugador.nombre != txtJugador.Text)
+                            {
+                                Jugador.nombre = txtJugador.Text;
+                            }
+                            else
+                            {
+                                ShowMensajes("Escriba un nuevo nombre del jugador");
+                                return;
+                            }
+                            
                             break;
                         default:
                             casino.jugadores.Add(new jugadores { nombre = txtJugador.Text, cantidad = 10000 });
                             break;
                     }
 
-                  VerificaTran(casino);
+                    VerificaTran(casino);
                 }
                 else
                 {
@@ -59,7 +68,7 @@ namespace Casino
             CargarGrid();
         }
 
-        public void ShowMensajes(string mensaje) =>ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + mensaje + "');", true);
+        public  void ShowMensajes(string mensaje) => ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + mensaje + "');", true);
 
         private void CargarGrid()
         {
@@ -89,27 +98,27 @@ namespace Casino
             var Jugador = casino.jugadores.SingleOrDefault(j => j.id == Id);
 
             if (e.CommandName == "Modificar")
-            { 
+            {
                 txtJugador.Text = Jugador.nombre;
                 hdfModificando.Value = nameof(opera.modifica);
             }
             else if (e.CommandName == "Eliminar")
             {
-                casino.jugadores.Remove(Jugador);              
+                casino.jugadores.Remove(Jugador);
                 VerificaTran(casino);
             }
-         
+
         }
 
         /// <summary>
         /// /verifica si la transaccion fu exitoisa
         /// </summary>
-        /// <param name="casino"></param>
-        private void VerificaTran(casinoEntities casino)
+        /// <param name="casino">entidad a guardar</param>
+        public void VerificaTran(casinoEntities casino)
         {
             if (casino.SaveChanges() > 0)
             {
-                ShowMensajes("Transaccion  exitosa");
+                ShowMensajes("Cambios guardados exitosamente");
             }
             else
             {

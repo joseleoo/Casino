@@ -20,7 +20,7 @@
                     <asp:Label runat="server" Text="Nombre del jugador"></asp:Label>
                     <asp:TextBox runat="server" placeholder="ingrese nombre del jugador" ID="txtJugador"></asp:TextBox>
                     <asp:Button runat="server" Text="Guardar" ID="btnGuardar" OnClick="btnGuardar_Click" />
-                    <asp:Button ID="btnLimpiar" runat="server" Text="Borrar" OnClick="btnLimpiar_Click" />
+                    <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" OnClick="btnLimpiar_Click" />
                 </div>
                 <hr />
                 <div>

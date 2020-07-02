@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="60169b3373644cb79823787ad4117019" Name="Diagram1">
         <EntityTypeShape EntityType="casinoModel.jugadores" Width="1.5" PointX="2.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="casinoModel.ValorColor" Width="1.5" PointX="5.5" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
